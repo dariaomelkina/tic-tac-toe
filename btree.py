@@ -1,8 +1,4 @@
 # based on implementation from lesson
-
-from queue import Queue
-
-
 class LLBinaryTree:
     """ Class for binary tree representation. """
 

@@ -1,3 +1,7 @@
+# considering, that binary tree node is not used
+# in my implementation, that class is just an example
+
+
 class BTNode:
     """ Class for binary tree node representation. """
 
