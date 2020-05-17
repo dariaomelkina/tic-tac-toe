@@ -191,5 +191,5 @@ class Board:
 
 
 class NotAllowedMoveException(Exception):
-    """ Class for not allowed move represenation. """
+    """ Class for not allowed move representation. """
     pass
