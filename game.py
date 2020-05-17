@@ -4,6 +4,10 @@ from termcolor import cprint
 
 
 def main():
+    """
+    () -> str
+    Simulate tic-tack-toe game.
+    """
     board = Board()
     while True:
         board.person_move()

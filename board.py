@@ -7,14 +7,20 @@ from termcolor import colored, cprint
 
 
 class Board:
+    """ Class for board representation. """
+
     def __init__(self):
+        """
+        (Board) -> NoneType
+        Create new board.
+        """
         self.positions = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self._last_symbol = None
-        # self._last_position = None
 
     def state(self):
         """
         (Board) -> str/NoneType
+        Return state of the board.
         """
         for i in self.positions:
             if i.count('O') == 3:
@@ -46,6 +52,7 @@ class Board:
     def possible(self):
         """
         (Board) -> dictionary
+        Return dictionary of possible moves.
         """
         dct = dict()
         for x in range(3):
@@ -59,17 +66,29 @@ class Board:
         return dct
 
     def person_move(self):
+        """
+        (Board) -> NoneType
+        Accept input from the user,
+        add user's move to the positions.
+        """
         dct = self.possible()
-        cprint('Current possible moves: '+ str(dct), 'magenta')
+        cprint('Current possible moves: ' + str(dct), 'magenta')
         move = int(input(colored('Choose a move: ', 'magenta')))
         while move not in dct.keys():
-            move = int(input('That is not allowed. Choose another move: '))
+            try:
+                raise NotAllowedMoveException
+            except NotAllowedMoveException:
+                move = int(input(colored('Sorry, that move is not possible. Choose another one: ', 'magenta')))
         self.add_pos(dct[move][0], dct[move][1], 'X')
         self._last_symbol = 'X'
         cprint('\nYour move:', 'cyan')
         print(self)
 
     def __str__(self):
+        """
+        (Board) -> str
+        Return string representation of the board.
+        """
         st = '  | 0 | 1 | 2   \n––––––––––––––\n'
         for i in range(3):
             st += '{} '.format(i)
@@ -87,6 +106,11 @@ class Board:
         return st
 
     def tree(self):
+        """
+        (Board) -> Board
+        Choose the best variant out of two,
+        by building binary tree.
+        """
         tree = LLBinaryTree(self.positions)
 
         def recursion(board, tree):
@@ -135,6 +159,11 @@ class Board:
 
     @staticmethod
     def count_points(lst):
+        """
+        (lst) -> int
+        Count points depending on the results of the game,
+        finished with such boards.
+        """
         result = 0
         for i in lst:
             if i.state() == "X":
@@ -144,9 +173,23 @@ class Board:
         return result
 
     def add_pos(self, x, y, item):
+        """
+        (Board) -> NoneType
+        Add item to a (x, y) position.
+        """
         self.positions[x][y] = item
 
     def computer_move(self):
+        """
+        (Board) -> NoneType
+        Change board, depending on
+        computer move.
+        """
         self.positions = self.tree().positions
         cprint('\nComputer move:', 'yellow')
         print(self)
+
+
+class NotAllowedMoveException(Exception):
+    """ Class for not allowed move represenation. """
+    pass

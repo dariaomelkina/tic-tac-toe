@@ -4,12 +4,22 @@ from queue import Queue
 
 
 class LLBinaryTree:
+    """ Class for binary tree representation. """
+
     def __init__(self, root):
+        """
+        (LLBinaryTree) -> NoneType
+        Create new binary tree.
+        """
         self.key = root
         self.left = None
         self.right = None
 
     def insert_left(self, new_node):
+        """
+        (LLBinaryTree) -> NoneType
+        Insert new node to the left parameter.
+        """
         if self.left is None:
             self.left = LLBinaryTree(new_node)
         else:
@@ -18,6 +28,10 @@ class LLBinaryTree:
             self.left = temp
 
     def insert_right(self, new_node):
+        """
+        (LLBinaryTree) -> NoneType
+        Insert new node to the right parameter.
+        """
         if self.right is None:
             self.right = LLBinaryTree(new_node)
         else:
@@ -26,12 +40,24 @@ class LLBinaryTree:
             self.right = temp
 
     def get_right(self):
+        """
+        (LLBinaryTree) -> obj/NoneType
+        Return value of the right parameter.
+        """
         return self.right
 
     def get_left(self):
+        """
+        (LLBinaryTree) -> obj/NoneType
+        Return value of the left parameter.
+        """
         return self.left
 
     def get_leaves(self):
+        """
+        (LLBinaryTree) -> lst
+        Return list of the leaves of the tree.
+        """
         lst = []
 
         def recursion(tree, lst):
